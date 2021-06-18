@@ -1,6 +1,6 @@
 # calculadora
 
-A new Flutter project.
+App de calculadora construido em Flutter a partir do design feito pela [UX/UI Designer Ana Clara](https://www.linkedin.com/in/anacriando/).
 
 ## Getting Started
 
