@@ -1,9 +1,9 @@
-import 'package:calculadora/core/app_settings.dart';
+import 'package:calculadora/config.dart';
 import 'package:calculadora/core/custom_theme.dart';
 import 'package:calculadora/screens/calculator/calculator_screen.dart';
 import 'package:calculadora/screens/history/history_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       height: double.infinity,
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: context.watch<AppSettings>().lightTheme
+        gradient: Theme.of(context).brightness == Brightness.light
             ? CustomTheme.scaffoldBackgroundLight
             : CustomTheme.scaffoldBackgroundDark,
       ),
@@ -40,26 +40,59 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0.0,
-              bottom: TabBar(
-                controller: _tabCtrl,
-                physics: NeverScrollableScrollPhysics(),
-                labelColor: Colors.grey[900],
-                unselectedLabelColor: Colors.grey[900],
-                automaticIndicatorColorAdjustment: false,
-                labelStyle: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'DMSans',
+              bottom: PreferredSize(
+                preferredSize: Size(double.infinity, 46),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TabBar(
+                        controller: _tabCtrl,
+                        physics: NeverScrollableScrollPhysics(),
+                        labelColor:
+                            Theme.of(context).brightness == Brightness.light
+                                ? Colors.black
+                                : null,
+                        automaticIndicatorColorAdjustment: false,
+                        labelStyle: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'DMSans',
+                        ),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize: 16.0,
+                          fontFamily: 'DMSans',
+                        ),
+                        indicator: _TabIndicator(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        tabs: [
+                          Tab(text: 'Standard'),
+                          Tab(text: 'Scientific'),
+                        ],
+                      ),
+                    ),
+                    if (kIsWeb)
+                      IconButton(
+                        splashRadius: 20.0,
+                        icon: Icon(
+                          Theme.of(context).brightness == Brightness.light
+                              ? Icons.mode_night_rounded
+                              : Icons.wb_sunny_rounded,
+                        ),
+                        onPressed: () {
+                          currentTheme.switchTheme();
+                        },
+                      ),
+                    IconButton(
+                      splashRadius: 20.0,
+                      icon: Icon(
+                        Icons.help_outline_rounded,
+                      ),
+                      onPressed: () {},
+                    ),
+                    SizedBox(width: 10),
+                  ],
                 ),
-                unselectedLabelStyle: TextStyle(
-                  fontSize: 16.0,
-                  fontFamily: 'DMSans',
-                ),
-                indicator: _TabIndicator(color: Theme.of(context).primaryColor),
-                tabs: [
-                  Tab(text: 'Standard'),
-                  Tab(text: 'Scientific'),
-                ],
               ),
             ),
             body: TabBarView(

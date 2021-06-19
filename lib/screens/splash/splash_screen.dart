@@ -1,7 +1,5 @@
-import 'package:calculadora/core/app_settings.dart';
 import 'package:calculadora/core/custom_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: context.watch<AppSettings>().lightTheme
+          gradient: Theme.of(context).brightness == Brightness.light
               ? CustomTheme.scaffoldBackgroundLight
               : CustomTheme.scaffoldBackgroundDark,
         ),

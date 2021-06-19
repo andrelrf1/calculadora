@@ -21,22 +21,55 @@ class CalculatorButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        margin: const EdgeInsets.all(15.0),
         alignment: Alignment.center,
-        decoration: isEqualButton
-            ? BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(8.0),
+        child: !isEqualButton
+            ? Text(
+                buttonText,
+                style: TextStyle(
+                  color: color,
+                  fontFamily: 'Poppins',
+                  fontSize: size,
+                ),
               )
-            : null,
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            color: color,
-            fontFamily: 'Poppins',
-            fontSize: size,
-          ),
-        ),
+            : Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(8.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xff000000),
+                        blurRadius: 12.5,
+                        offset: Offset(0, 7),
+                        spreadRadius: -9,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          color: color,
+                          width: 18.0,
+                          height: 3.0,
+                        ),
+                        SizedBox(height: 4.0),
+                        Container(
+                          color: color,
+                          width: 18.0,
+                          height: 3.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }

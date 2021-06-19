@@ -30,10 +30,23 @@ class CustomTheme {
     return LinearGradient(
       colors: [
         Color(0xff2E2E2E),
-        Color(0xff2E2323),
+        Color(0xff242424),
       ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     );
+  }
+}
+
+class ChangeTheme with ChangeNotifier {
+  static bool _isLight = true;
+
+  ThemeMode currentTheme() {
+    return _isLight ? ThemeMode.light : ThemeMode.dark;
+  }
+
+  void switchTheme() {
+    _isLight = !_isLight;
+    notifyListeners();
   }
 }
