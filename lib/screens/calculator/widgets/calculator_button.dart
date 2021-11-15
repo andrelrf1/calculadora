@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CalculatorButton extends StatelessWidget {
   final VoidCallback? onPressed;
+  final VoidCallback? onLongPress;
   final Color? color;
   final String buttonText;
   final bool isEqualButton;
@@ -14,12 +15,14 @@ class CalculatorButton extends StatelessWidget {
     this.size = 36.0,
     this.color,
     this.onPressed,
+    this.onLongPress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
+      onLongPress: onLongPress,
       child: Container(
         alignment: Alignment.center,
         child: !isEqualButton

@@ -13,9 +13,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   String _calcSecondaryText = '';
   bool _operate = false;
 
-  void _sum() {
-
-  }
+  void _sum() {}
 
   void _subtraction() {}
 
@@ -68,6 +66,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 onPressed: () {
                   setState(() {
                     _calcPrimaryText = '0';
+                    _calcSecondaryText = '';
                   });
                 },
               ),
@@ -234,6 +233,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 color: Theme.of(context).primaryColor,
                 size: 42.0,
                 onPressed: () {
+                  if (_calcSecondaryText.length > 0 &&
+                      ['×', '-', '÷'].contains(_calcSecondaryText
+                          .substring(_calcSecondaryText.length - 1))) {
+                    setState(() {
+                      _calcSecondaryText = _calcSecondaryText.substring(
+                          1, _calcSecondaryText.length - 1);
+                    });
+                  }
                   if (!_calcSecondaryText.contains('+')) {
                     setState(() {
                       _calcSecondaryText = _calcPrimaryText + ' + ';
@@ -254,6 +261,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           0, _calcPrimaryText.length - 1);
                     });
                   }
+                },
+                onLongPress: () {
+                  setState(() {
+                    _calcPrimaryText = '0';
+                  });
                 },
               ),
               CalculatorButton(
